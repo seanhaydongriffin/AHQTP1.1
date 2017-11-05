@@ -40,12 +40,6 @@ import com.sun.jna.platform.win32.WinUser;
 
 
 import Toolkit.Windows.File;
-
-
-
-import autoitx4java.AutoItX;
-
-
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpDelete;

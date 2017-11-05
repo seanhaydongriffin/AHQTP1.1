@@ -250,7 +250,7 @@ public class Go {
 				}
 			).click();
 		
-		logInfo("screenshot");
+		logInfo("screenshot browser");
 
 		// Go
 		

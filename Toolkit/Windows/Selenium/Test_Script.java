@@ -19,10 +19,7 @@ import javax.swing.JOptionPane;
 
 import org.apache.commons.lang3.RandomStringUtils;
 
-import com.jacob.com.LibraryLoader;
-
 import Toolkit.Windows.Selenium.Datapool.Test_Environment;
-import autoitx4java.AutoItX;
 
 public class Test_Script
 {
@@ -55,7 +52,7 @@ public class Test_Script
 	            	Graphics2D g = indexedImage.createGraphics();
 	            	g.drawImage(image, 0,0,null);
 		            
-		            com.idrsolutions.image.png.PngEncoder  pngEncoder =  new com.idrsolutions.image.png.PngEncoder();
+//		            com.idrsolutions.image.png.PngEncoder  pngEncoder =  new com.idrsolutions.image.png.PngEncoder();
 					
 					// look for the next screenshot filename
 					int screenshot_file_num = 1;
@@ -64,7 +61,7 @@ public class Test_Script
 						screenshot_file_num++;
 										
 					// use JDeli's pngencoder for much fast PNG encoding than imageIO above
-		            pngEncoder.write(indexedImage, new FileOutputStream(Test_Environment.local_logs_path + File.separator + screenshot_file_num + ".png"));
+//		            pngEncoder.write(indexedImage, new FileOutputStream(Test_Environment.local_logs_path + File.separator + screenshot_file_num + ".png"));
 	
 					log_xml = 	"<msg><date_time>" + now + "</date_time><result>" + message_type + "</result><text>Screenshot " + screenshot_file_num + ".png</text></msg>\r\n</log>";
 					
@@ -293,36 +290,6 @@ public class Test_Script
     	return Test_Script.debugging;
     }
 	
-	public static void execute(String app_path, String working_directory)
-	{
-        System.setProperty(LibraryLoader.JACOB_DLL_PATH, (new File("C:" + File.separator + "Selenium" + File.separator + "jacob-1.18-x86.dll")).getAbsolutePath());
-        AutoItX x = new AutoItX();
-        x.run(app_path, working_directory);
-	}
-	
-	// flag = 6 for minimised
-	
-	public static void execute(String app_path, String working_directory, int flag)
-	{
-        System.setProperty(LibraryLoader.JACOB_DLL_PATH, (new File("C:" + File.separator + "Selenium" + File.separator + "jacob-1.18-x86.dll")).getAbsolutePath());
-        AutoItX x = new AutoItX();
-        x.run(app_path, working_directory, flag);
-	}
-	
-	public static void mouse_click(String button, int x2, int y2)
-	{
-        System.setProperty(LibraryLoader.JACOB_DLL_PATH, (new File("C:" + File.separator + "Selenium" + File.separator + "jacob-1.18-x86.dll")).getAbsolutePath());
-        AutoItX x = new AutoItX();
-        x.mouseClick(button, x2, y2, 1, 0);
-	}
-	
-	public static String clipboard_get_text()
-	{
-        System.setProperty(LibraryLoader.JACOB_DLL_PATH, (new File("C:" + File.separator + "Selenium" + File.separator + "jacob-1.18-x86.dll")).getAbsolutePath());
-        AutoItX x = new AutoItX();
-        return x.clipGet();
-	}
-	
 	public static void information_message(String message, boolean always_on_top)
 	{
  		JFrame frmOpt = new JFrame();
@@ -340,7 +307,7 @@ public class Test_Script
 	
 	public static void log_screen()
 	{
-		logInfo("screenshot");
+		logInfo("screenshot browser");
 		
 		try
 		{

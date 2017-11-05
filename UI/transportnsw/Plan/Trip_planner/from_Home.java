@@ -53,7 +53,7 @@ public class from_Home {
 			}
 		);
 
-		logInfo("screenshot");
+		logInfo("screenshot browser");
 
 		trip.click();
 	}

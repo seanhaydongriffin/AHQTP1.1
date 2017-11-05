@@ -17,7 +17,7 @@ public class Close {
 	
 	public static void testMain() throws Exception
 	{
-		logInfo("screenshot");
+		logInfo("screenshot browser");
 
 		BrowserTestObject.close_all();
 	}
