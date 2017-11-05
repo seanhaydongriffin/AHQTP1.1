@@ -1,0 +1,4 @@
+From,To,time option,Search Date,Search Hour,Search Minute,Train,Bus,Ferry,Light rail,Coach,School bus,Opal enabled services only,Accessible services only,Walk speed,Trip preference,To and from transport,Runtime Setup Instructions,Comment 1,Assigned to
+North Sydney Station,Town Hall Station,,,,,,,,,,,,,,,,,Phileas,TR_UAT_POC_S0001
+North Sydney Station,Town Hall Station,Leaving,13 Nov (Mon),21,30,,,,,,,,,,,,,Susan,TR_UAT_POC_S0002
+North Sydney Station,Town Hall Station,Arriving,14 Nov (Tue),05,05,,,,,,,,,,,,,Mark,TR_UAT_POC_S0003

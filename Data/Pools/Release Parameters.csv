@@ -1,0 +1,5 @@
+Parameter Name,Parameter Value
+Test Environment,UAT
+HyperCam logging
+HyperCam wrapper path
+Selenium Hub URL,http://localhost:5555/wd/hub

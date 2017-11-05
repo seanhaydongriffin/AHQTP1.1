@@ -1,0 +1,4 @@
+Browser,Browser Version,Operating System,Operating System Version,Resolution,Profile Folder,Proxy Scheme,Proxy Host,Proxy Port,Proxy Username,Proxy Password,Runtime Setup Instructions,Comment 1,Assigned to
+Chrome,61.0,Windows,8.1,1440x900,default,,,,,,,Browser 1,TR_ST_POC_S0001
+Firefox,55.0,Windows,8.1,1440x900,default.default,,,,,,,Browser 1,TR_ST_POC_S0002
+IE,11.0,Windows,8.1,1440x900,,,,,,,,Browser 1,TR_ST_POC_S0003
