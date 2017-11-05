@@ -41,7 +41,7 @@ public class Test_Script
 				
 				if (message.equals("screenshot"))
 				{
-					BrowserTestObject.wait_until_ready();
+//					BrowserTestObject.wait_until_ready();
 					Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
 					Rectangle screenRectangle = new Rectangle(screenSize);
 					Robot robot = new Robot();

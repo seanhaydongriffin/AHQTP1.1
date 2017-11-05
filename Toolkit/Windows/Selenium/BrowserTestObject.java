@@ -44,8 +44,6 @@ import Toolkit.Windows.Selenium.Datapool.Test_Environment;
 
 public class BrowserTestObject extends RemoteWebDriver
 {
-//	public static WebDriver current_driver;
-	//public static WebDriver driver2;
 	public static BrowserTestObject current_driver = null;
 	public static BrowserTestObject driver2 = null;
 	public static String current_hub_url = "";
@@ -263,22 +261,8 @@ public class BrowserTestObject extends RemoteWebDriver
 
 			capability.setCapability("resolution", resolution);
 		
-//		if (browserstack_debug != null && !browserstack_debug.equals(""))
-
-//			capability.setCapability("browserstack.debug", browserstack_debug);
-			capability.setCapability("browserstack.debug", "false");
-		
-//		if (browser_version != null && !browser_version.equals(""))
-
-			capability.setCapability("browserstack.video", "true");
-		
-//		if (browser_version != null && !browser_version.equals(""))
-
-//			capability.setCapability("browserstack.geckodriver", "0.18.0");
-		
-//		if (browser_version != null && !browser_version.equals(""))
-
-//			capability.setCapability("browserstack.selenium_version", "3.5.2");
+		capability.setCapability("browserstack.debug", "false");
+		capability.setCapability("browserstack.video", "true");
 
 		try
 		{
@@ -423,16 +407,6 @@ public class BrowserTestObject extends RemoteWebDriver
 		return current_driver;
 	}
 	
-	public static void navigate_back()
-	{
-		current_driver.navigate().back();
-	}
-	
-	public static void close_current()
-	{
-		current_driver.close();
-	}
-	
 	public static void close_all()
 	{
 		current_driver.manage().deleteAllCookies();
@@ -463,230 +437,5 @@ public class BrowserTestObject extends RemoteWebDriver
     	FileUtils.copyFile(scrFile, new File(imageFileDir, file_name));
 	}
 
-	// Switch control back to the main browser window
-	public static void switch_to_default_content()
-	{
-		set_current_driver_if_not_set(true);
-		current_driver.switchTo().defaultContent();
-	}
-	
-	public static void move_to()
-	{
-		((JavascriptExecutor) BrowserTestObject.current_driver).executeScript("window.moveTo(0,0);");
-	}
-	
-	public static void move_previous_page()
-	{
-		((JavascriptExecutor) BrowserTestObject.current_driver).executeScript("window.history.go(-1)");
-	}
 
-	public static void wait_until_no_ajax()
-	{
-		try{
-	    	String timerName = start_timer();
-	    	long num_ajax_requests = (long)((JavascriptExecutor) BrowserTestObject.current_driver).executeScript("return jQuery.active;");
-	
-			while (get_timer(timerName) < get_wait_for_object_timeout() && num_ajax_requests > 0)
-			{
-				sleep(0.5, true);
-				num_ajax_requests = (long)((JavascriptExecutor) BrowserTestObject.current_driver).executeScript("return jQuery.active;");
-				logDebug("Number of pending AJAX requests = " + num_ajax_requests);
-			}
-		}catch (Exception ex){
-			
-		}
-	}
-
-	public static void wait_until_readystate_complete()
-	{
-		try{
-	    	String timerName = start_timer();
-	
-			while (get_timer(timerName) < get_wait_for_object_timeout())
-			{
-				sleep(0.5, true);
-				String readyState = (String)((JavascriptExecutor) BrowserTestObject.current_driver).executeScript("return document.readyState;");
-				logDebug("readyState = " + readyState);
-				
-				if (readyState.equals("complete"))
-					
-					break;
-			}
-		}catch (Exception ex){
-			ex.printStackTrace();
-
-		}
-	}
-	
-	public static void go_to_Top()
-	{
-		try{
-			((JavascriptExecutor) BrowserTestObject.current_driver).executeScript("window.scrollTo(0, document.body.scrollHeight)");
-		} catch (Exception ex){
-			
-		}
-	}
-
-	public static void wait_until_no_animations()
-	{
-		try{
-	    	String timerName = start_timer();
-	        long num_animations = (long)((JavascriptExecutor) BrowserTestObject.current_driver).executeScript("return $(\":animated\").length;");
-
-			while (get_timer(timerName) < get_wait_for_object_timeout() && num_animations > 0)
-			{
-				sleep(0.5, true);
-		        num_animations = (long)((JavascriptExecutor) BrowserTestObject.current_driver).executeScript("return $(\":animated\").length;");
-				logDebug("Number of animations = " + num_animations);
-			}
-		}catch (Exception ex){
-			
-		}
-	}
-
-	public static long get_busy_item_count()
-	{
-		long num_busy_items = 0;
-		
-		try
-		{
-	        String document_status = (String)((JavascriptExecutor) BrowserTestObject.current_driver).executeScript("return document.readyState;");
-	        long active_jquery_count = (long)((JavascriptExecutor) BrowserTestObject.current_driver).executeScript("return jQuery.active");
-	        long animation_count = (long)((JavascriptExecutor) BrowserTestObject.current_driver).executeScript("return $(\":animated\").length;");
-	        long document_state = ((document_status.equals("complete")) ? 0 : 1);
-	        num_busy_items = document_state + active_jquery_count + animation_count;
-
-			logDebug("Number of busy items = " + num_busy_items + " (Document State: " + document_status + ", Active JQuery Count: " + active_jquery_count + ", Animation Count: " + animation_count + ")");
-		} catch (Exception ex)
-		{
-		}
-		
-		return num_busy_items;
-	}
-
-	public static void wait_until_ready()
-	{
-		try
-		{
-	    	String timerName = start_timer();
-			while (get_timer(timerName) < get_wait_for_object_timeout())
-			{
-		        String document_status = (String)((JavascriptExecutor) BrowserTestObject.current_driver).executeScript("return document.readyState;");
-		        long active_jquery_count = (long)((JavascriptExecutor) BrowserTestObject.current_driver).executeScript("return jQuery.active");
-		        long animation_count = (long)((JavascriptExecutor) BrowserTestObject.current_driver).executeScript("return $(\":animated\").length;");
-		        long document_state = ((document_status.equals("complete")) ? 0 : 1);
-		        long num_busy_items = document_state + active_jquery_count + animation_count;
-		      
-		        if (num_busy_items < 1)
-		        	break;
-		        
-		        if (WebTestObject.alertExsists())
-		        	break;
-
-				logDebug("Number of busy items = " + num_busy_items + " (Document State: " + document_status + ", Active JQuery Count: " + active_jquery_count + ", Animation Count: " + animation_count + ")");
-				sleep(0.5, true);
-			}
-		} catch (Exception ex)
-		{
-		}
-	}
-
-	public static void wait_until_url(String url)
-	{
-    	String timerName = start_timer();
-
-		while (get_timer(timerName) < get_wait_for_object_timeout() && !current_driver.getCurrentUrl().matches(url))
-		{
-			sleep(1, true);
-			logDebug("Current URL = " + current_driver.getCurrentUrl());
-		}
-	}
-	
-
-	public static String get_window_handle()
-	{
-		return current_driver.getWindowHandle();
-	}
-
-	public static void switch_to_window(String window_handle)
-	{
-       	current_driver.switchTo().window(window_handle);
-	}
-
-	public static void switch_to_current_window()
-	{
-		String current_window = current_driver.getWindowHandle();
-       	current_driver.switchTo().window(current_window);
-	}
-
-	public static void switch_to_next_window(boolean close_current_window)
-	{
-		final String current_window_handle = current_driver.getWindowHandle();
-		
-		do
-			sleep(1);
-		while (current_driver.getWindowHandles().size() == 1);
-		
-	    for (String activeHandle : current_driver.getWindowHandles())
-	    {
-	        if (!activeHandle.equals(current_window_handle))
-	        {
-	        	if (close_current_window)
-	        		current_driver.close();
-	        	
-	        	current_driver.switchTo().window(activeHandle);
-	        	break;
-	        }
-	    }
-	}
-
-	public static boolean window_exists(String window_handle)
-	{
-	    for (String activeHandle : current_driver.getWindowHandles())
-	    {
-	        if (activeHandle.equals(window_handle))
-	        	return true;
-	    }
-		
-	    return false;
-	}
-
-	public static void close_window(String window_handle)
-	{
-		final String current_window_handle = current_driver.getWindowHandle();
-		
-	    for (String activeHandle : current_driver.getWindowHandles())
-	    {
-	        if (activeHandle.equals(window_handle))
-	        {
-	        	current_driver.switchTo().window(activeHandle);
-        		current_driver.close();
-	        	current_driver.switchTo().window(current_window_handle);
-	        	break;
-	        }
-	    }
-	}
-
-
-	public static void send_key(Keys key)
-	{
-		Actions action = new Actions(current_driver); 
-		action.sendKeys(key).build().perform();
-	}
-
-	public static void send_key2(Keys key) throws Exception
-	{
-		WebTestObject.find_until_existent(
-			null,	
-			new By[] {
-				By.tagName("body"),
-			}
-		).set_text2(key);
-	}
-
-	
-	public void scroll_by(int x_offset, int y_offset)
-	{
-		((JavascriptExecutor)current_driver).executeScript("window.scrollBy(" + x_offset + ", " + y_offset + ");");
-	}
 }
